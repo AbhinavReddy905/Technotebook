@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>TechNotebook – Learn &amp; Type</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1a1d29;--mu:#9aa0b4;--bd:#e3e6f0;--ac:#4f46e5;--ok:#111;--bad:#fecaca;--badt:#b91c1c;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1117;--card:#181b25;--tx:#e8eaf2;--mu:#5d647b;--bd:#2a2e3d;--ac:#818cf8;--ok:#f5f5f5;--bad:#7f1d1d;--badt:#fca5a5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1117;--card:#181b25;--tx:#e8eaf2;--mu:#5d647b;--bd:#2a2e3d;--ac:#818cf8;--ok:#f5f5f5;--bad:#7f1d1d;--badt:#fca5a5;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{display:flex;min-height:100vh}nav{width:220px;padding:16px;background:var(--card);border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+nav h1{font-size:18px;margin:0 0 8px;color:var(--ac)}nav button,.btn{font:inherit;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 12px;border-radius:10px;cursor:pointer;transition:.15s}
+nav button{text-align:left;border-color:transparent}nav button:hover,.btn:hover{border-color:var(--ac)}nav button.on{background:var(--ac);color:#fff}.btn.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;width:100%}
+main{flex:1;padding:24px;max-width:960px;min-width:0}.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}.stat b{display:block;font-size:26px}.stat span,.mu{color:var(--mu);font-size:14px}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);transition:width .4s}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--bd);margin-right:6px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ans{font:20px/1.8 ui-monospace,Menlo,Consolas,monospace;color:var(--mu);padding:14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);word-break:break-word;white-space:pre-wrap}.ov{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;border:0;padding:0}
+.ans span{transition:color .12s}.ans .ok{color:var(--ok)}.ans .bad{background:var(--bad);color:var(--badt);border-radius:3px}.ans .cur{border-left:2px solid var(--ac)}
+pre{background:var(--bd);padding:12px;border-radius:10px;overflow-x:auto}.bm{color:#f59e0b}.lbl{font-weight:600}
+.g{border-left:4px solid #10b981}.s{border-left:4px solid #f59e0b}.r{border-left:4px solid var(--ac)}
+@media(max-width:720px){.app{flex-direction:column}nav{width:100%;height:auto;position:static;flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--bd)}nav h1{width:100%}main{padding:14px}}
+</style></head><body><div class="app"><nav id="nav"></nav><main id="m"></main></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SEED=[
+{id:"py",name:"Python & Coding",subjects:[{name:"Python Basics",topics:[
+{id:"py1",title:"Variables and Data Types",body:["## Variables","A variable is a name that refers to a value stored in memory.","- int, float, str, bool, list, tuple, dict, set","    age = 25\n    name = \"Asha\"\n    print(type(age))"],qa:[["What is Python?","Python is a high-level, interpreted, general-purpose programming language."],["What is a variable in Python?","A variable is a name that refers to a value stored in memory."]]},
+{id:"py2",title:"Loops and Functions",body:["## Loops","Use for to iterate over a sequence and while to repeat until a condition is false.","    def square(n):\n        return n * n\n    for i in range(3):\n        print(square(i))"],qa:[["What is a function?","A function is a reusable block of code that performs a task and can return a value."],["Difference between for and while loop?","A for loop iterates over a sequence while a while loop runs as long as its condition stays true."]]}]},{name:`Level 2 – Data Structures and OOP`,topics:[{id:`py3`,title:`Lists, Tuples and Dictionaries`,body:[`## Collections`,`A list is ordered and mutable. A tuple is ordered and immutable. A dictionary maps keys to values.`,`    nums = [3, 1, 2]
+    nums.append(5)
+    nums.sort()
+    user = {'name': 'Asha', 'age': 25}
+    print(user['name'])`,`## Comprehensions`,`    squares = [n * n for n in range(5)]`],qa:[[`What is the difference between a list and a tuple?`,`A list is mutable while a tuple is immutable.`],[`Write code to square numbers 0 to 4 with a list comprehension.`,`squares = [n * n for n in range(5)]`,`c`],[`Write code to count word frequency in a list called words.`,`counts = {}
+for w in words:
+    counts[w] = counts.get(w, 0) + 1`,`c`]]},{id:`py4`,title:`OOP and Exception Handling`,body:[`## Classes`,`A class is a blueprint and an object is an instance of it.`,`    class Account:
+        def __init__(self, bal):
+            self.bal = bal
+        def deposit(self, x):
+            self.bal += x`,`## Exceptions`,`    try:
+        x = 1 / 0
+    except ZeroDivisionError:
+        print('cannot divide')
+    finally:
+        print('done')`,`- Pillars of OOP: encapsulation, inheritance, polymorphism, abstraction`],qa:[[`What is a class?`,`A class is a blueprint for creating objects that bundle data and behaviour.`],[`What are the four pillars of OOP?`,`The four pillars of OOP are encapsulation, inheritance, polymorphism and abstraction.`],[`Write code to catch a division by zero error.`,`try:
+    x = 1 / 0
+except ZeroDivisionError:
+    print('cannot divide')`,`c`]]}]},{name:`Level 3 – Job Ready`,topics:[{id:`py5`,title:`Files, JSON and Pandas`,body:[`## Files and JSON`,`    import json
+    with open('data.json') as f:
+        data = json.load(f)`,`## Pandas`,`    import pandas as pd
+    df = pd.read_csv('sales.csv')
+    df.groupby('region')['amount'].sum()`,`- Use virtual environments, write tests with pytest, and keep code in Git`],qa:[[`Why use the with statement for files?`,`The with statement closes the file automatically even if an error occurs.`],[`Write code to sum amount by region in a DataFrame df.`,`df.groupby('region')['amount'].sum()`,`c`],[`Write a function to reverse a string.`,`def reverse(s):
+    return s[::-1]`,`c`]]}]}]},
+{id:"sql",name:"SQL",subjects:[{name:"Core SQL",topics:[
+{id:"sql1",title:"SELECT and Joins",body:["## SELECT","SELECT picks columns, FROM picks the table, WHERE filters rows.","## Joins","- INNER: matching rows only\n- LEFT: all left rows plus matches","    SELECT c.name, o.total\n    FROM customers c\n    LEFT JOIN orders o ON o.cid = c.id;"],qa:[["What is an INNER JOIN?","An INNER JOIN returns only the rows that have matching values in both tables."],["What is a LEFT JOIN?","A LEFT JOIN returns all rows from the left table and the matching rows from the right table."]]},
+{id:"sql2",title:"Window Functions",body:["## Window functions","They calculate across related rows without collapsing them into one row.","    SELECT name, salary,\n      RANK() OVER (ORDER BY salary DESC) rk\n    FROM emp;"],qa:[["What is a window function?","A window function performs a calculation across a set of related rows without collapsing them into a single row."]]}]},{name:`Level 2 – Analytics SQL`,topics:[{id:`sql3`,title:`GROUP BY, HAVING and CTEs`,body:[`## Aggregation`,`GROUP BY groups rows. HAVING filters groups. WHERE filters rows before grouping.`,`    SELECT dept, COUNT(*) AS n
+    FROM emp
+    GROUP BY dept
+    HAVING COUNT(*) > 5;`,`## CTE`,`    WITH top AS (
+      SELECT * FROM emp WHERE salary > 50000
+    )
+    SELECT dept, COUNT(*) FROM top GROUP BY dept;`],qa:[[`What is the difference between WHERE and HAVING?`,`WHERE filters rows before grouping while HAVING filters groups after aggregation.`],[`Write SQL to find the second highest salary in emp.`,`SELECT MAX(salary)
+FROM emp
+WHERE salary < (SELECT MAX(salary) FROM emp);`,`c`],[`Write SQL to list departments with more than 5 employees.`,`SELECT dept, COUNT(*)
+FROM emp
+GROUP BY dept
+HAVING COUNT(*) > 5;`,`c`]]}]}]},
+{id:"de",name:"Data Engineering",subjects:[{name:"Foundations",topics:[
+{id:"de1",title:"ETL vs ELT",body:["## ETL","Extract, Transform, then Load into the target.","## ELT","Extract, Load raw data first, then Transform inside the warehouse (Snowflake, dbt)."],qa:[["What is ETL?","ETL is a process that extracts data from sources, transforms it, and then loads it into a target system."],["What is ELT?","ELT loads raw data into the warehouse first and then transforms it using the warehouse compute."]]},
+{id:"de2",title:"Warehouse vs Data Lake",body:["- Warehouse: structured, modelled data for analytics","- Lake: raw data of any format, cheap storage","- Lakehouse: combines both"],qa:[["What is a data warehouse?","A data warehouse is a central store of structured, modelled data optimised for analytics and reporting."]]}]},{name:`Level 2 – Pipelines`,topics:[{id:`de3`,title:`Data Modelling and Orchestration`,body:[`## Star schema`,`A central fact table of measurable events surrounded by dimension tables.`,`- Fact: amount, quantity. Dimension: date, product, customer`,`## Orchestration`,`Airflow schedules tasks as a DAG with dependencies.`,`    # extract >> transform >> load`],qa:[[`What is a star schema?`,`A star schema has a central fact table connected to dimension tables for fast analytical queries.`],[`What is a DAG in Airflow?`,`A DAG is a directed acyclic graph that defines tasks and their dependencies for a workflow.`],[`Write SQL to create a fact table with sale_id, date_id, product_id and amount.`,`CREATE TABLE fact_sales (
+    sale_id INT,
+    date_id INT,
+    product_id INT,
+    amount DECIMAL(10,2)
+);`,`c`]]}]}]},
+{id:"ds",name:"Data Science",subjects:[{name:"Statistics and ML",topics:[
+{id:"ds1",title:"Mean, Median and Overfitting",body:["Mean is the average. Median is the middle value and resists outliers.","## Overfitting","A model that memorises training data and fails on new data."],qa:[["What is overfitting?","Overfitting is when a model learns the training data too closely and performs poorly on unseen data."],["When is median better than mean?","Median is better when the data has outliers because it is not affected by extreme values."]]}]},{name:`Level 2 – Modelling`,topics:[{id:`ds2`,title:`Train/Test Split and Metrics`,body:[`Split data so the model is judged on unseen examples.`,`    from sklearn.model_selection import train_test_split
+    from sklearn.linear_model import LogisticRegression
+    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2)
+    model = LogisticRegression().fit(Xtr, ytr)
+    print(model.score(Xte, yte))`,`- Precision, recall and F1 matter more than accuracy on imbalanced data`],qa:[[`Why split data into train and test sets?`,`Splitting lets us evaluate the model on unseen data to detect overfitting.`],[`Write code to split X and y with a 20 percent test size.`,`from sklearn.model_selection import train_test_split
+Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2)`,`c`]]}]}]},
+{id:"ai",name:"AI Engineering",subjects:[{name:"LLM Apps",topics:[
+{id:"ai1",title:"LLMs, Prompts and RAG",body:["An LLM predicts the next token from context.","## RAG","Retrieve relevant documents, add them to the prompt, then generate a grounded answer."],qa:[["What is RAG?","Retrieval-Augmented Generation retrieves relevant documents and adds them to the prompt so the model answers with grounded facts."],["What is a prompt?","A prompt is the input text or instruction given to a language model to guide its output."]]}]},{name:`Level 2 – Building`,topics:[{id:`ai2`,title:`Embeddings and Vector Search`,body:[`Embeddings turn text into vectors so similar meaning means nearby vectors.`,`    import numpy as np
+    def cosine(a, b):
+        return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))`],qa:[[`What is an embedding?`,`An embedding is a vector of numbers that represents the meaning of text so similar items are close together.`],[`Write a cosine similarity function with numpy.`,`def cosine(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))`,`c`]]}]}]},
+{id:"cy",name:"Cyber Security",subjects:[{name:"Fundamentals",topics:[
+{id:"cy1",title:"CIA Triad and Common Attacks",body:["- Confidentiality: only authorised access","- Integrity: data is not altered improperly","- Availability: systems are accessible when needed","## Attacks","SQL injection, phishing, XSS, ransomware, DDoS."],qa:[["What is the CIA triad?","The CIA triad stands for Confidentiality, Integrity and Availability, the three core goals of information security."],["What is SQL injection?","SQL injection is an attack where malicious SQL is inserted into input to manipulate a database query."]]}]},{name:`Level 2 – Defence`,topics:[{id:`cy2`,title:`Hashing, Encryption and Safe Queries`,body:[`- Hashing is one-way. Encryption is reversible with a key`,`- Store passwords with bcrypt or argon2 and a salt, never as plain text`,`## Prevent SQL injection`,`Use parameterised queries.`,`    cur.execute('SELECT * FROM users WHERE id = %s', (uid,))`],qa:[[`What is the difference between hashing and encryption?`,`Hashing is one-way and cannot be reversed while encryption can be reversed with the correct key.`],[`Write a parameterised query to select a user by uid.`,`cur.execute('SELECT * FROM users WHERE id = %s', (uid,))`,`c`]]}]}]}];
+let DATA,P={read:{},bm:[],prac:[],last:'',mode:'g'},R='',ST={};
+const ls=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
+const idb=()=>new Promise((a,b)=>{try{const r=indexedDB.open('tn',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>a(r.result);r.onerror=b}catch(e){b()}});
+async function load(){try{const d=await idb();return await new Promise(r=>{const q=d.transaction('kv').objectStore('kv').get('p');q.onsuccess=()=>r(q.result);q.onerror=()=>r()})}catch(e){}}
+async function save(){try{const d=await idb();d.transaction('kv','readwrite').objectStore('kv').put(JSON.parse(JSON.stringify(P)),'p')}catch(e){}}
+const T=()=>DATA.flatMap(t=>t.subjects.flatMap(s=>s.topics.map(p=>({...p,tech:t,subj:s,qa:p.qa||[],body:p.body||[]}))));
+const topic=id=>T().find(x=>x.id===id);
+const NAV=[['','Dashboard'],['learn','Learn'],['g','Guided Practice'],['s','Self-Test'],['c','Code Practice'],['bm','Bookmarks'],['manage','Manage']];
+function go(r){R=r;P.last=r;save();render()}
+function render(){
+$('#nav').innerHTML=`<h1>TechNotebook</h1><input id="q" placeholder="Search…" oninput="srch(this.value)" aria-label="Search">`+NAV.map(([k,n])=>`<button class="${R.split('/')[0]===k||(k==='learn'&&R.startsWith('read'))?'on':''}" onclick="go('${k}')">${n}</button>`).join('')+`<button onclick="theme()">Toggle theme</button>`;
+const [a,b,c,d]=R.split('/'),m=$('#m');window.scrollTo(0,0);
+if(a==='')dash(m);else if(a==='learn')learn(m,b);else if(a==='read')read(m,b);else if(a==='g'||a==='s')pick(m,a);else if(a==='c')codes(m);
+else if(a==='p')prac(m,b,c,+d);else if(a==='bm')bms(m);else if(a==='manage')manage(m);else if(a==='q')results(m,decodeURIComponent(b||''))}
+function theme(){const r=document.documentElement,cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');r.dataset.theme=cur==='dark'?'light':'dark';ls('theme',r.dataset.theme)}
+function srch(v){if(v.trim()){R='q/'+encodeURIComponent(v);const m=$('#m');results(m,v)}else go('')}
+function results(m,q){q=q.toLowerCase();const ts=T().filter(t=>(t.title+t.tech.name+t.subj.name).toLowerCase().includes(q));
+const qs=T().flatMap(t=>t.qa.map((x,i)=>({t,i,q:x[0]}))).filter(x=>x.q.toLowerCase().includes(q));
+m.innerHTML=`<h2>Results for “${esc(q)}”</h2>`+(ts.map(t=>`<div class="card r row"><span class="tag">${esc(t.tech.name)}</span><b>${esc(t.title)}</b><button class="btn" onclick="go('read/${t.id}')">Read</button></div>`).join('')+qs.map(x=>`<div class="card g row"><span>${esc(x.q)}</span><button class="btn" onclick="go('p/g/${x.t.id}/${x.i}')">Guided</button><button class="btn" onclick="go('p/s/${x.t.id}/${x.i}')">Self-Test</button></div>`).join('')||'<p class="mu">Nothing found.</p>')}
+function dash(m){const ts=T(),nq=ts.reduce((n,t)=>n+t.qa.length,0),done=ts.filter(t=>P.read[t.id]?.done).length,g=P.prac.filter(x=>x.wpm),avg=k=>g.length?Math.round(g.reduce((s,x)=>s+x[k],0)/g.length):0;
+const pq=new Set(P.prac.map(x=>x.t+x.i)).size,pct=ts.length?Math.round(done/ts.length*100):0,last=P.prac.slice(-10);
+m.innerHTML=`<h2>Dashboard</h2><div class="grid">${[['Technologies',DATA.length],['Topics',ts.length],['Questions',nq],['Topics completed',done],['Questions practised',pq],['Avg WPM',avg('wpm')],['Avg accuracy',avg('acc')+'%']].map(([a,b])=>`<div class="card stat"><b>${b}</b><span>${a}</span></div>`).join('')}</div>
+<div class="card"><div class="lbl">Overall reading progress: ${pct}%</div><div class="bar"><i style="width:${pct}%"></i></div></div>
+<div class="card"><div class="lbl">Recent WPM</div><div class="row" style="align-items:flex-end;height:90px">${last.map(x=>`<div title="${x.wpm||0} wpm" style="width:22px;background:var(--ac);border-radius:4px 4px 0 0;height:${Math.min(90,(x.wpm||x.acc/3)*1.2)}px"></div>`).join('')||'<span class="mu">Practise to see your chart.</span>'}</div></div>
+<div class="row" style="margin-bottom:14px">${P.last&&P.last!==''&&!P.last.startsWith('q')?`<button class="btn p" onclick="go('${P.last}')">Continue where you left off</button>`:''}<button class="btn" onclick="go('g')">Continue practising</button><button class="btn" onclick="go('learn')">Continue learning</button></div>
+<div class="card"><div class="lbl">Recent activity</div>${P.prac.slice(-5).reverse().map(x=>`<div class="mu">${x.mode==='g'?'Guided':'Self-Test'} · ${esc(x.q)} · ${x.acc}% · ${new Date(x.at).toLocaleDateString()}</div>`).join('')||'<span class="mu">No activity yet.</span>'}</div>`}
+function learn(m,id){if(!id){m.innerHTML=`<h2>Learn</h2><div class="grid">${DATA.map(t=>{const n=t.subjects.flatMap(s=>s.topics);const d=n.filter(x=>P.read[x.id]?.done).length;return`<div class="card r" style="cursor:pointer" onclick="go('learn/${t.id}')"><b>${esc(t.name)}</b><div class="mu">${n.length} topics · ${d} done</div></div>`}).join('')}</div>`;return}
+const t=DATA.find(x=>x.id===id);m.innerHTML=`<button class="btn" onclick="go('learn')">← All technologies</button><h2>${esc(t.name)}</h2>`+t.subjects.map(s=>`<div class="card"><div class="lbl">${esc(s.name)}</div>${s.topics.map(p=>`<div class="row" style="padding:6px 0"><button class="btn" onclick="go('read/${p.id}')">${P.read[p.id]?.done?'✓ ':''}${esc(p.title)}</button>${P.bm.includes(p.id)?'<span class="bm">★</span>':''}</div>`).join('')}</div>`).join('')}
+function fmt(l){l=String(l);if(l.startsWith('## '))return`<h3>${esc(l.slice(3))}</h3>`;if(l.startsWith('    '))return`<pre><code>${esc(l.replace(/^ {4}/gm,''))}</code></pre>`;if(l.startsWith('- '))return`<ul>${l.split('\n').map(x=>`<li>${esc(x.replace(/^- /,''))}</li>`).join('')}</ul>`;return`<p>${esc(l)}</p>`}
+function read(m,id){const t=topic(id);if(!t)return go('learn');P.last='read/'+id;(P.read[id]=P.read[id]||{}).at=Date.now();save();const bm=P.bm.includes(id);
+m.innerHTML=`<button class="btn" onclick="go('learn/${t.tech.id}')">← ${esc(t.tech.name)}</button><div class="card r" style="margin-top:12px"><span class="tag">${esc(t.subj.name)}</span><h2 style="margin:6px 0">${esc(t.title)}</h2>${t.body.map(fmt).join('')}</div>
+<div class="row"><button class="btn" onclick="tg('bm','${id}')">${bm?'★ Bookmarked':'☆ Bookmark'}</button><button class="btn p" onclick="tg('done','${id}')">${P.read[id].done?'✓ Completed':'Mark complete'}</button><button class="btn" onclick="go('p/g/${id}/0')">Guided practice</button><button class="btn" onclick="go('p/s/${id}/0')">Self-Test</button></div>`}
+function tg(k,id){if(k==='bm'){const i=P.bm.indexOf(id);i<0?P.bm.push(id):P.bm.splice(i,1)}else P.read[id].done=!P.read[id].done;save();render()}
+function bms(m){m.innerHTML='<h2>Bookmarks</h2>'+(P.bm.map(topic).filter(Boolean).map(t=>`<div class="card r row"><span class="tag">${esc(t.tech.name)}</span><b>${esc(t.title)}</b><button class="btn" onclick="go('read/${t.id}')">Open</button></div>`).join('')||'<p class="mu">No bookmarks yet. Open a topic and press Bookmark.</p>')}
+function pick(m,mode){P.mode=mode;ls('mode',mode);m.innerHTML=`<h2>${mode==='g'?'Guided Practice':'Self-Test'}</h2><p class="mu">${mode==='g'?'Type the grey answer. Correct characters turn black.':'Answer from memory, then submit to compare.'}</p><label class="mu">Technology <select onchange="ST.f=this.value;pick($('#m'),'${mode}')"><option value="">All</option>${DATA.map(t=>`<option value="${t.id}" ${ST.f===t.id?'selected':''}>${esc(t.name)}</option>`).join('')}</select></label><br><br>`+T().filter(t=>!ST.f||t.tech.id===ST.f).filter(t=>t.qa.length).map(t=>`<div class="card ${mode}"><span class="tag">${esc(t.tech.name)}</span><b>${esc(t.title)}</b> <span class="mu">${t.qa.length} questions</span><div><button class="btn p" onclick="go('p/${mode}/${t.id}/0')">Start</button></div></div>`).join('')}
+function prac(m,mode,id,i){const t=topic(id);if(!t||!t.qa[i])return go(mode);P.last=`p/${mode}/${id}/${i}`;save();const [q,a,kind]=t.qa[i],nx=i+1<t.qa.length?`go('p/${mode}/${id}/${i+1}')`:`go('${mode}')`;
+ST.p={start:0,keys:0,errs:0,len:0,done:false};
+m.innerHTML=`<button class="btn" onclick="go('${mode}')">← Topics</button><div class="card ${mode}" style="margin-top:12px"><span class="tag">${mode==='g'?'Guided':'Self-Test'}</span><span class="mu">${esc(t.title)} · ${i+1}/${t.qa.length}</span><h2 style="margin:6px 0">${esc(q)}</h2>
+${mode==='g'?`<div class="ans" style="position:relative;min-height:90px;cursor:text"><div id="ans" aria-live="off"></div><textarea id="inp" class="ov" aria-label="Type the answer here" autocomplete="off" spellcheck="false" onpaste="return false"></textarea></div><p class="mu">Click the box and start typing. The grey text fills in as you type.</p>`:`<textarea id="inp" rows="5" placeholder="Type your answer from memory…"></textarea><div class="row" style="margin-top:8px"><button class="btn p" id="sub">Submit Answer</button></div>`}
+<div id="res"></div></div><div class="row"><button class="btn" onclick="go('p/${mode}/${id}/${i}')">Retry</button><button class="btn p" onclick="${nx}">Next Question</button></div>`;
+const inp=$('#inp');inp.focus();inp.onkeydown=e=>{if(e.key==='Tab'&&kind){e.preventDefault();document.execCommand('insertText',false,'    ')}};
+if(mode==='g'){const draw=()=>{const v=inp.value;$('#ans').innerHTML=[...a].map((c,k)=>`<span class="${k<v.length?(v[k]===c?'ok':'bad'):''}${k===v.length?' cur':''}">${esc(c)}</span>`).join('')};draw();
+inp.oninput=()=>{const p=ST.p,v=inp.value;if(p.done)return;if(!p.start)p.start=Date.now();for(let k=p.len;k<v.length;k++){p.keys++;if(v[k]!==a[k])p.errs++}p.len=v.length;draw();
+if(v===a){p.done=true;inp.disabled=true;const sec=Math.max(1,Math.round((Date.now()-p.start)/1000)),wpm=Math.round(a.length/5/(sec/60)),acc=Math.round((p.keys-p.errs)/p.keys*100);
+P.prac.push({t:id,i,mode:'g',q,wpm,acc,sec,at:Date.now()});P.read[id]=P.read[id]||{};save();$('#res').innerHTML=`<p class="lbl">Done! ${wpm} WPM · ${acc}% accuracy · ${sec}s</p>`}}}
+else{inp.oninput=()=>{if(!ST.p.start)ST.p.start=Date.now()};$('#sub').onclick=()=>{const u=inp.value.trim();if(!u)return;const W=s=>[...new Set(s.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>(kind?1:3)))],aw=W(a),uw=W(u),hit=aw.filter(w=>uw.includes(w)),miss=aw.filter(w=>!uw.includes(w)),cov=aw.length?Math.round(hit.length/aw.length*100):0,sec=Math.max(1,Math.round((Date.now()-(ST.p.start||Date.now()))/1000));
+P.prac.push({t:id,i,mode:'s',q,acc:cov,sec,wpm:Math.round(u.length/5/(sec/60)),at:Date.now()});save();inp.disabled=true;$('#sub').disabled=true;
+$('#res').innerHTML=`<p class="lbl">${cov>=60?'Good recall':'Needs review'} · ${cov}% of key points covered · ${sec}s</p><div class="ans" style="color:var(--tx);font-size:16px"><b>Expected:</b> ${esc(a)}</div>${miss.length?`<p><b>Missing:</b> ${miss.map(esc).join(', ')}</p>`:'<p>You covered every key point.</p>'}`}}}
+function codes(m){const L=T().flatMap(t=>t.qa.map((x,i)=>({t,i,x})).filter(o=>o.x[2]));m.innerHTML='<h2>Code Practice</h2><p class="mu">Coding questions only. Type the solution in guided mode, or write it yourself first.</p>'+(L.map(o=>`<div class="card g"><span class="tag">${esc(o.t.tech.name)}</span><b>${esc(o.x[0])}</b><div class="row" style="margin-top:8px"><button class="btn p" onclick="go('p/g/${o.t.id}/${o.i}')">Type guided</button><button class="btn" onclick="go('p/s/${o.t.id}/${o.i}')">Try yourself</button></div></div>`).join('')||'<p class="mu">No coding questions yet.</p>')}
+function manage(m){m.innerHTML=`<h2>Manage</h2><div class="card r"><div class="lbl">Content (update anytime)</div><p class="mu">Edit the JSON below, or paste a new content pack, then press Apply. Structure: technologies → subjects → topics → body lines + qa pairs. Body lines: “## ” heading, “- ” bullets, lines starting with 4 spaces are code. Topics need unique ids.</p><textarea id="cj" rows="14" style="font-family:monospace;font-size:12px">${esc(JSON.stringify(DATA,null,1))}</textarea><div class="row" style="margin-top:8px"><button class="btn p" onclick="applyC()">Apply content</button><button class="btn" onclick="ls('content',null);DATA=SEED;go('manage')">Restore built-in</button><button class="btn" onclick="addC()">Merge as extra pack</button></div><p id="cmsg" class="mu"></p></div>
+<div class="card"><div class="lbl">Progress backup</div><p class="mu">Progress is stored in this browser on this device only. Export a backup to move it elsewhere.</p><div class="row"><button class="btn" onclick="exp()">Export progress</button><label class="btn">Import progress<input type="file" accept=".json" hidden onchange="imp(this)"></label><button class="btn" onclick="if(confirm('Reset all progress?')){P={read:{},bm:[],prac:[],last:'',mode:'g'};save();go('')}">Reset progress</button></div></div>`}
+function parseC(){try{const d=JSON.parse($('#cj').value);if(!Array.isArray(d)||d.some(t=>!t.id||!Array.isArray(t.subjects)))throw 0;return d}catch(e){$('#cmsg').textContent='Invalid JSON structure.';return null}}
+function applyC(){const d=parseC();if(d){DATA=d;ls('content',d);$('#cmsg').textContent='Content updated.'}}
+function addC(){const d=parseC();if(!d)return;const m=new Map(SEED.concat(ls('content')||[]).map(t=>[t.id,t]));d.forEach(t=>m.set(t.id,t));DATA=[...m.values()];ls('content',DATA);$('#cmsg').textContent='Merged.'}
+function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(P)],{type:'application/json'}));a.download='technotebook-progress.json';a.click()}
+function imp(el){const f=el.files[0];if(!f)return;f.text().then(t=>{try{const d=JSON.parse(t);if(!d.read||!d.prac)throw 0;P=d;save();go('')}catch(e){alert('Not a valid backup file.')}})}
+(async()=>{const th=ls('theme');if(th)document.documentElement.dataset.theme=th;DATA=ls('content')||SEED;const p=await load();if(p)P=Object.assign(P,p);R=(P.last||'').startsWith('q')?'':P.last||'';render()})();
+</script></body></html>
